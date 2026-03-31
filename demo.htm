@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: linear-gradient(135deg, #4a91d8 0%, #ab4dd3 50%, #f57fb8 100%),
+                              url('https://images.unsplash.com/photo-1496307653780-42ee777d4833?auto=format&fit=crop&w=1500&q=80');
+            background-size: cover, cover;
+            background-blend-mode: overlay;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        /* Animations */
+        @keyframes pop-in {
+            0% {
+                transform: scale(0.85) translateY(-15px);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+        }
+
+        /* Login Container */
+        .login-container {
+            background-color: #cfeff3;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            animation: pop-in 0.7s ease-out both;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 24px;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box; /* Ensures padding doesn't affect width */
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            color: rgb(255, 255, 255);
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s ease, background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-1px);
+            animation: pulse 0.8s ease-in-out;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box; /* Ensures padding doesn't affect width */
+            transition: border-color 0.25s, box-shadow 0.25s;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .social-section {
+            margin-top: 14px;
+            text-align: center;
+            color: #e8f5ff;
+            font-size: 0.85rem;
+        }
+
+        .social-buttons {
+            margin-top: 8px;
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .social-btn {
+            flex: 1;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            padding: 10px 8px;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.40);
+            cursor: pointer;
+            font-weight: 700;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 0 10px rgba(0, 255, 159, 0.35);
+        }
+
+        .social-btn.google { background: linear-gradient(120deg, #4285f4, #357ae8); }
+        .social-btn.facebook { background: linear-gradient(120deg, #4267b2, #314d86); }
+
+        .options a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .options a:hover {
+            text-decoration: underline;
+        }
+
+        /* Dark Theme */
+        body.dark-theme {
+            background-image: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.85) 50%, rgba(51, 65, 85, 0.85) 100%),
+                              url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1500&q=80');
+            background-size: cover, cover;
+            background-blend-mode: multiply;
+            color: #e5e7eb;
+            filter: brightness(0.78) saturate(1.1);
+        }
+
+        body.dark-theme .login-container {
+            background-color: rgba(15, 23, 42, 0.86);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        body.dark-theme h2,
+        body.dark-theme label {
+            color: #e2e8f0;
+        }
+
+        body.dark-theme input[type="text"],
+        body.dark-theme input[type="password"] {
+            background-color: #0f172a;
+            color: #e5e7eb;
+            border: 1px solid #334155;
+        }
+
+        body.dark-theme input[type="text"]:focus,
+        body.dark-theme input[type="password"]:focus {
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.25);
+        }
+
+        body.dark-theme button {
+            background-color: #2563eb;
+        }
+
+        body.dark-theme button:hover {
+            background-color: #1d4ed8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h2 style="margin:0;">Welcome Back</h2>
+        <button id="theme-toggle" type="button" style="padding:6px 12px; font-size:14px; width:auto;">Dark Mode</button>
+    </div>
+    <form action="/login-endpoint" method="POST">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+    <div class="social-section">
+        <p>or sign in with</p>
+        <div class="social-buttons">
+            <button type="button" class="social-btn google">Google</button>
+            <button type="button" class="social-btn facebook">Facebook</button>
+        </div>
+    </div>
+    <div class="options">
+        <label><input type="checkbox"> Remember me</label>
+        <a href="#">Forgot password?</a>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggle = document.getElementById('theme-toggle');
+        const form = document.querySelector('form');
+        const username = document.getElementById('username');
+        const password = document.getElementById('password');
+        const status = document.createElement('div');
+
+        status.setAttribute('id', 'status');
+        status.style.marginTop = '12px';
+        status.style.fontFamily = "'Consolas','Courier New',monospace";
+        status.style.fontSize = '0.9rem';
+        status.style.color = '#7bed9f';
+        status.textContent = 'SYSTEM READY.';
+        form.after(status);
+
+        function setStatus(text, color) {
+            status.textContent = text;
+            status.style.color = color || '#7bed9f';
+        }
+
+        toggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-theme');
+            if (document.body.classList.contains('dark-theme')) {
+                toggle.textContent = 'Light Mode';
+                setStatus('DARK MODE ENGAGED', '#a3e548');
+            } else {
+                toggle.textContent = 'Dark Mode';
+                setStatus('LIGHT MODE ENGAGED', '#8fc8ff');
+            }
+        });
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const user = username.value.trim();
+            const pass = password.value.trim();
+
+            if (user.length < 3) {
+                setStatus('ERROR: USERNAME MUST BE AT LEAST 3 CHARACTERS', '#ff6b6b');
+                username.focus();
+                return;
+            }
+            if (pass.length < 8) {
+                setStatus('ERROR: PASSWORD MUST BE AT LEAST 8 CHARACTERS', '#ff6b6b');
+                password.focus();
+                return;
+            }
+
+            setStatus('VERIFYING CREDENTIALS...', '#00d7ff');
+            setTimeout(function() {
+                if (user === 'admin' && pass === 'password123') {
+                    setStatus('ACCESS GRANTED. WELCOME.', '#67ff91');
+                } else {
+                    setStatus('ACCESS DENIED. CHECK CREDENTIALS.', '#ff7f7f');
+                }
+            }, 900);
+        });
+    });
+</script>
+
+</body>
+</html>
